@@ -12,40 +12,15 @@ pages << {
     },
     driver: {
       "pre_code": "
-      await page.evaluate(()=> {
-        
-        const wait = (duration) => { 
-          console.log('waiting', duration);
-          return new Promise(resolve => setTimeout(resolve, duration)); 
-        };
-    
-        (async () => {
-          
-          window.atBottom = false;
-          const scroller = document.documentElement;  // usually what you want to scroll, but not always
-          let lastPosition = -1;
-          while(!window.atBottom) {
-            scroller.scrollTop += 1000;
-            // scrolling down all at once has pitfalls on some sites: scroller.scrollTop = scroller.scrollHeight;
-            await wait(300);
-            const currentPosition = scroller.scrollTop;
-            if (currentPosition > lastPosition) {
-              console.log('currentPosition', currentPosition);
-              lastPosition = currentPosition;
+        let lastHeight = await page.evaluate('document.body.scrollHeight');   
+        while (true) {
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)');
+            await page.waitForTimeout(2000); // sleep a bit
+            let newHeight = await page.evaluate('document.body.scrollHeight');
+            if (newHeight === lastHeight) {
+                break;
             }
-            else {
-              window.atBottom = true;
-            }
-          }
-          console.log('Done!');
-    
-        })();
-    
-      });
-    
-      await page.waitForFunction('window.atBottom == true', {
-        timeout: 900000,
-        polling: 1000 // poll for finish every second
-      });"
+            lastHeight = newHeight;
+        }"
     }
   }
