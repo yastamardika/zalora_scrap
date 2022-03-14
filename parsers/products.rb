@@ -21,5 +21,5 @@ product['url'] = page['url']
 product['SKU'] = html.css('#product-box .ui-grid.ui-gridFull.product__attr.prd-attributes tbody tr')[0]
 product['SKU'] = product['SKU'].css('td')[1].text.gsub(/\s+/,"")
 # p product
-
+product['_collection'] = 'products'
 outputs << product
