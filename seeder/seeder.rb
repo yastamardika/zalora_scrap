@@ -11,7 +11,7 @@ pages << {
       category: "Men's shoes",
     },
     driver: {
-      "code": "
+      "pre_code": "
       await page.evaluate(()=> {
         
         const wait = (duration) => { 
