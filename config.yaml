@@ -7,5 +7,5 @@ parsers:
     page_type: listings
     disabled: false
   - file: ./parsers/products.rb
-    page_type: listings
+    page_type: products
     disabled: false
