@@ -1,8 +1,7 @@
-html = Nokogiri.HTML(content)
+html = JSON.parse(content)
 
 #load products
 # p html.css('body')
-products = html.css('.b-catalogList__wrapper.clearfix li')
 p products.length 
 products.each do |product|
     link = product.css('.b-catalogList__itmLink.itm-link > @href').text
