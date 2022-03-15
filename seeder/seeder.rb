@@ -9,6 +9,7 @@ pages << {
     },
     vars: {
       category: "Men's shoes",
+      current_offset: 180
     },
     driver: {
       "pre_code": "
